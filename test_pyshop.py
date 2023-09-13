@@ -45,12 +45,13 @@ def generate_game():
     return stamps
 
 
-game_stamps = generate_game()
-
-pprint(game_stamps)
-
-
 def get_score(game_stamps, offset):
+    if (
+        not game_stamps or not isinstance(game_stamps, list)
+        or offset > game_stamps[-1]['offset'] or offset < 0
+    ):
+        raise ValueError('Offset вне диапозона')
+    offset = math.floor(offset)
     for i in range(offset // OFFSET_MAX_STEP, offset):
         if game_stamps[i]['offset'] <= offset:
             offset_stamp = game_stamps[i]
@@ -59,3 +60,9 @@ def get_score(game_stamps, offset):
     home = offset_stamp['score']['home']
     away = offset_stamp['score']['away']
     return home, away
+
+
+if __name__ == "__main__":
+    game_stamps = generate_game()
+
+    pprint(game_stamps)
