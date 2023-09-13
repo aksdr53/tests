@@ -50,7 +50,7 @@ def get_score(game_stamps, offset):
         not game_stamps or not isinstance(game_stamps, list)
         or offset > game_stamps[-1]['offset'] or offset < 0
     ):
-        raise ValueError('Offset вне диапозона')
+        raise ValueError('Wrong value')
     offset = math.floor(offset)
     for i in range(offset // OFFSET_MAX_STEP, offset):
         if game_stamps[i]['offset'] <= offset:
